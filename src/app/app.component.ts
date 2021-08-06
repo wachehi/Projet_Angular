@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mon-projet en construction';
+  title2 = 'ajout branche dev verification';
 
 
 }
