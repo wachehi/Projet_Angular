@@ -1,36 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppareilService } from './service/appareil.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 isAuth = false;
  lastUpdate = new Date();
-
- appareils = [
-    {
-       name: 'Machine à laver',
-       status : 'éteint'
-    },
-    {
-      name: 'Télévesion',
-      status : 'allumé'
-   },
-   {
-    name: 'Ordinateur',
-    status : 'éteint'
-  }, 
-  {
-    name: 'Souris',
-    status : 'autre'
-  }
-
- ];
+ appareils : any;
+ 
 
 
-constructor(){
+constructor(private appareilService : AppareilService){
 
   setTimeout(
     () => {
@@ -38,8 +21,20 @@ constructor(){
     }, 4000
   );
 }
+// la methode ngOnInit() est execute au moment de la création du component
+// et juste après l'execution du constructeur
+ngOnInit(){
+ this.appareils = this.appareilService.appareils;
+
+}
 onAllumer(){
-  console.log('On allume tout !');
+  this.appareilService.switchOnAll();
+}
+
+onEteindre(){
+  this.appareilService.switchOffAll();
+
+
 }
 
 }
