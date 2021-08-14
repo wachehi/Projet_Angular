@@ -33,8 +33,7 @@ onAllumer(){
 
 onEteindre(){
   this.appareilService.switchOffAll();
-
-
 }
+
 
 }

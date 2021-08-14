@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AppareilService } from '../service/appareil.service';
 
 @Component({
   selector: 'app-apareil',
@@ -7,12 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ApareilComponent implements OnInit {
 
-   @Input() appareilName = '';
+   // declaration des variables avec @Input permet de passer des variables à partir de 
+   // component parent jusqu'au component enfant .
+   @Input() appareilName = ''; 
    @Input() appareilStatus ='';
+   @Input() indexOfAppareil = 0;
 
-  constructor() { }
+  constructor(private appareilService : AppareilService) { }
 
   ngOnInit(): void {
+    
   }
 
   getStatus(){
@@ -28,6 +33,11 @@ export class ApareilComponent implements OnInit {
     }
  
    }
-  
+  onSwitchOn(){
+   this.appareilService.switchOnOne(this.indexOfAppareil);
+  }
+  onSwitchOff(){
+    this.appareilService.switchOffOne(this.indexOfAppareil);
+   }
 
 }

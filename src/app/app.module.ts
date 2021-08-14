@@ -8,12 +8,16 @@ import { MonPremierComponent } from './mon-premier/mon-premier.component';
 import { ApareilComponent } from './apareil/apareil.component';
 
 import { AppareilService } from './service/appareil.service';
+import { AuthComponent } from './auth/auth.component';
+import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MonPremierComponent,
-    ApareilComponent
+    ApareilComponent,
+    AuthComponent,
+    AppareilViewComponent
   ],
   imports: [
     BrowserModule,
