@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  authStatus = false;
+
+  constructor( private authService : AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    this.authStatus = this.authService.isAuth;
+  }
+
+  onSignIn() {
+    this.authService.signIn().then(
+      () => {
+       this.authStatus = this.authService.isAuth;
+       this.router.navigate(['appareil']);    // cette ligne veut que après la connexion , il va diriger directement à la route appareil
+      }
+    );
+  }
+
+  onSignOut() {
+     this.authService.signOut();
+     this.authStatus = this.authService.isAuth;
+
   }
 
 }
