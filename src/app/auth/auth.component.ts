@@ -21,7 +21,7 @@ export class AuthComponent implements OnInit {
     this.authService.signIn().then(
       () => {
        this.authStatus = this.authService.isAuth;
-       this.router.navigate(['appareil']);    // cette ligne veut que après la connexion , il va diriger directement à la route appareil
+       this.router.navigate(['appareils']);    // cette ligne veut que après la connexion , il va diriger directement à la route appareil
       }
     );
   }
