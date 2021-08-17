@@ -14,10 +14,11 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { AuthGuard } from './service/auth-guard.service';
 
 const appRoutes: Routes = [
-   {path: 'appareils', component: AppareilViewComponent},
-   {path: 'appareils/:id', component: SingleAppareilComponent},
+   {path: 'appareils', canActivate:[AuthGuard], component: AppareilViewComponent},  // canActivate:[AuthGuard] : permet de s'autentifier avant d'avoir acceès appareils
+   {path: 'appareils/:id',canActivate:[AuthGuard], component: SingleAppareilComponent}, // canActivate:[AuthGuard] : pareil aussi pour le SingleAppareil
    {path: 'auth', component: AuthComponent},
    {path: '', component: AppareilViewComponent },
    {path: 'not-found', component: FourOhFourComponent },
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AppareilService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
