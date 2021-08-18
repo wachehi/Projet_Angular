@@ -20,7 +20,7 @@ const appRoutes: Routes = [
    {path: 'appareils', canActivate:[AuthGuard], component: AppareilViewComponent},  // canActivate:[AuthGuard] : permet de s'autentifier avant d'avoir acceès appareils
    {path: 'appareils/:id',canActivate:[AuthGuard], component: SingleAppareilComponent}, // canActivate:[AuthGuard] : pareil aussi pour le SingleAppareil
    {path: 'auth', component: AuthComponent},
-   {path: '', component: AppareilViewComponent },
+   {path: '', component: AuthComponent },
    {path: 'not-found', component: FourOhFourComponent },
    {path: '**', redirectTo: '/not-found' }
 ];
