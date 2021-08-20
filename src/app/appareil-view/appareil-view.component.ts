@@ -11,9 +11,7 @@ export class AppareilViewComponent implements OnInit {
 
   isAuth = false;
   lastUpdate = new Date();
- 
-
-  
+   
  appareils!: any[];
  appareilSubscription: Subscription = new Subscription;
  constructor(private appareilService : AppareilService){
@@ -31,9 +29,8 @@ export class AppareilViewComponent implements OnInit {
            (appareils: any[]) =>{
             this.appareils = appareils;
            }
-
-  )
- 
+  );
+    this.appareilService.emitAppareilSubject();
  }
  onAllumer(){
    this.appareilService.switchOnAll();
