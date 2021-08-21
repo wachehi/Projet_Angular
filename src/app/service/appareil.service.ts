@@ -47,7 +47,7 @@ export class AppareilService {
   for(let appareil of this.appareils){
       appareil.status = 'allumer';
   }
-   this.emitAppareilSubject();             // on va faire emettre pour que les components qui osont souscrit à ce subject veront le changement
+   this.emitAppareilSubject();             // on va faire emettre pour que les components qui sont souscrit à ce subject puissent avoir les éléménts du tableau
  }
  switchOffAll() {
     for(let appareil of this.appareils){
@@ -63,5 +63,20 @@ export class AppareilService {
     this.appareils[index].status = 'éteint';
     this.emitAppareilSubject();
   } 
+
+  addAppareil(name: string, status: string){
+      const appareilObjet = {
+          id: 0,
+          name: '',
+          status:''
+      };
+      appareilObjet.name = name;
+      appareilObjet.status = status;
+      appareilObjet.id = this.appareils[(this.appareils.length-1)].id +1;
+      
+      this.appareils.push(appareilObjet);
+      this.emitAppareilSubject();
+
+  }
 
 }
