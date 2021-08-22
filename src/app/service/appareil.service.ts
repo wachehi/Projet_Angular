@@ -27,11 +27,10 @@ export class AppareilService {
     
      ];
 
-   emitAppareilSubject(){           // on crée une methode qui fera en sorte que le suject emette la liste des appareils
+   emitAppareilSubject(){           // on crée une methode qui fera en sorte que le subject emette la liste des appareils
                                     // pour pouvoir y acceder depuis l'exterieur .
     this.appareilSubject.next(this.appareils.slice());
    }
-
 
   getAppareilById(id: number){
 
