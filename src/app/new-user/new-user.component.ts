@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../models/User.model';
 import { UserService } from '../service/user.service';
@@ -26,20 +26,36 @@ export class NewUserComponent implements OnInit {
        firstName: ['', Validators.required],             // validations de tous les controls
        lastName:  ['', Validators.required],
        email:  ['', Validators.required, Validators.email],
-       drinkPreference: ['', Validators.required] 
+       drinkPreference: ['', Validators.required],
+       hobbies: this.formBuilder.array([])                  // pour permettre à l'utilisateur d'ajouter dynamiquement de controls 
+                                                            // aux formulaires on va utiliser un form array
      });
 
   }
+
+ 
   onSubmitForm(){
-    const formValue = this.userForm.value  // ici on récupère toutes les valeur du controle du formulaire 
+    const formValue = this.userForm.value  // ici on récupère toutes les valeurs du controle  formulaire 
     const newUser = new User(
        formValue['firstName'],
        formValue['lastName'],
        formValue['email'],
-       formValue['drinkPreference']
+       formValue['drinkPreference'],
+       formValue['hobbies'] ? formValue['hobbies'] : []
     );
-    this.userService.addUser(newUser);
+    this.userService.addUser(newUser);   // on appel la fonction ajouter utilisateur
     this.router.navigate(['/users']);
   }
+
+  // Pour des raisons de typage on va créer une methode qui permet de retourner de format
+  getHobbies(){
+    return this.userForm.get('hobbies') as FormArray;
+  }
+
+  // On va créer une methode pour ajouter un controle pour ajouter un Hobbies
+   onAddHobby(){
+     const newHobbyControl = this.formBuilder.control('', Validators.required);
+      this.getHobbies().push(newHobbyControl);
+   }
 
 }
