@@ -1,5 +1,8 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 
+@Injectable()
 export class AppareilService {
 
    appareilSubject = new Subject<any[]>();  // création d'un Subject pour emettre que la liste qu'on veut emettre
@@ -26,6 +29,8 @@ export class AppareilService {
       }
     
      ];
+
+     constructor(private httpClient : HttpClient){}
 
    emitAppareilSubject(){           // on crée une methode qui fera en sorte que le subject emette la liste des appareils
                                     // pour pouvoir y acceder depuis l'exterieur .
@@ -76,6 +81,33 @@ export class AppareilService {
       this.appareils.push(appareilObjet);
       this.emitAppareilSubject();
 
+  }
+
+
+  saveAppareilsToServer(){
+    this.httpClient.put('https://http-client-demo-f05f5-default-rtdb.europe-west1.firebasedatabase.app/appareils.json',this.appareils)
+                   .subscribe(
+                     () =>{
+                      console.log('Enregistrement terminé');
+                     }, 
+                       (error) =>{
+                         console.log('Erreur de sauvagarde ! ' + error);
+                       } 
+                   )
+  }
+
+  getAppareilsFromServer(){
+    this.httpClient
+      .get<any[]>('https://http-client-demo-f05f5-default-rtdb.europe-west1.firebasedatabase.app/appareils.json')
+      .subscribe(
+        (response) => {
+          this.appareils = response;
+          this.emitAppareilSubject();
+        },
+          (error) => {
+            console.log('Erreur de chargement !' + error);            
+          }
+      );
   }
 
 }

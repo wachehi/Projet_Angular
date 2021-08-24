@@ -25,7 +25,7 @@ export class NewUserComponent implements OnInit {
      this.userForm = this.formBuilder.group({             // group est une methode qui retourne un formGroup
        firstName: ['', Validators.required],             // validations de tous les controls
        lastName:  ['', Validators.required],
-       email:  ['', Validators.required, Validators.email],
+       email:  ['', [Validators.required, Validators.email]],
        drinkPreference: ['', Validators.required],
        hobbies: this.formBuilder.array([])                  // pour permettre à l'utilisateur d'ajouter dynamiquement de controls 
                                                             // aux formulaires on va utiliser un form array
